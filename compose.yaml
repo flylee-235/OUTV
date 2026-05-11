@@ -1,0 +1,15 @@
+services:
+  follow-your-canvas:
+    container_name: follow-your-canvas
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/root/follow_your_canvas
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

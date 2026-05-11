@@ -1,0 +1,93 @@
+output_dir: "outputs/fyc_sam3_tta/dense"
+pretrained_model_path: "/home/610-ltf/DL/models/OUTV/pretrained_models/stable-diffusion-2-1/stable-diffusion-2-1-base"
+motion_pretrained_model_path: "/home/610-ltf/DL/models/OUTV/pretrained_models/follow-your-canvas/checkpoint-40000.ckpt"
+load_ckpt_full: true
+
+dataset_name: "single-video-sam3-tta"
+use_precomputed_sam3_dense: true
+
+unet_additional_kwargs:
+  use_motion_module: true
+  motion_module_resolutions: [1, 2, 4, 8]
+  unet_use_cross_frame_attention: false
+  unet_use_temporal_attention: false
+  use_linear_projection: true
+  use_inflated_groupnorm: true
+  motion_module_mid_block: true
+  use_fps_condition: true
+  use_temporal_conv: false
+  use_relative_postions: "WithAdapter"
+  use_ip_plus_cross_attention: true
+  ip_plus_condition: "video"
+  num_tokens: 64
+  use_adapter_temporal_projection: true
+  compress_video_features: true
+  image_hidden_size: 256
+  use_outpaint: true
+  motion_module_type: Vanilla
+  motion_module_kwargs:
+    num_attention_heads: 8
+    num_transformer_block: 1
+    attention_block_types: ["Temporal_Self", "Temporal_Self"]
+    temporal_position_encoding: true
+    temporal_position_encoding_max_len: 64
+    temporal_attention_dim_div: 1
+    zero_initialize: true
+
+noise_scheduler_kwargs:
+  num_train_timesteps: 1000
+  beta_start: 0.00085
+  beta_end: 0.012
+  beta_schedule: "linear"
+  steps_offset: 1
+  clip_sample: false
+  prediction_type: "v_prediction"
+  rescale_betas_zero_snr: true
+
+train_data:
+  video_path: "/home/610-ltf/DL/Datasets/data/video/摹阮郜女仙图卷.mp4"
+  sam3_root: "/home/610-ltf/DL/models/OUTV/OUTV-codex-sd3-temporal-outpainting/outputs/sam3_segments/摹阮郜女仙图卷"
+  sample_size: [768, 768]
+  sample_stride: 1
+  sample_n_frames: 64
+  target_size: [512, 512]
+  anchor_size: [512, 512]
+  overlap_ratio: [0.1, 1.0, 0.1, 1.0]
+  dynamic_anchor_size: false
+  random_sample_time: true
+  prompt: ""
+  length_multiplier: 1024
+
+trainable_modules:
+  - "_ip"
+  - "image_proj_model"
+  - "add_cond_embedding"
+  - "conv_in"
+
+learning_rate: 1.e-5
+num_workers: 2
+train_batch_size: 1
+max_train_steps: 100
+lr_scheduler: "constant"
+lr_warmup_steps: 0
+checkpointing_steps: 50
+
+global_seed: 42
+mixed_precision_training: true
+enable_xformers_memory_efficient_attention: true
+gradient_checkpointing: true
+
+use_temporal_multi_scale_training: false
+use_fps_condition: true
+use_spatial_temporal_separate_lr: true
+separate_lr_ratio: [2, 0]
+is_debug: false
+use_outpaint: true
+evaluation: false
+cfg_random_null_text_ratio: 0.1
+cfg_random_null_text_ratio_2: 0.2
+cfg_random_null_image: true
+use_ip_plus_cross_attention: true
+ip_plus_condition: "video"
+image_encoder_name: "SAM"
+image_pretrained_model_path: ""

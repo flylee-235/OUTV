@@ -1,0 +1,10 @@
+output_dir: "outputs/fyc_sam3_tta/layout"
+video_path: "/home/610-ltf/DL/Datasets/data/video/摹阮郜女仙图卷.mp4"
+sam3_root: "/home/610-ltf/DL/models/OUTV/OUTV-codex-sd3-temporal-outpainting/outputs/sam3_segments/摹阮郜女仙图卷"
+semantic_layout_loss_weight: 0.1
+use_sam3_dense_memory: true
+use_sam3_semantic_layout: true
+layout_predictor:
+  hidden_dim: 64
+trainable_modules: ["_ip", "image_proj_model", "add_cond_embedding", "conv_in"]
+

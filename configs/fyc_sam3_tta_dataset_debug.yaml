@@ -1,0 +1,10 @@
+video_path: "/home/610-ltf/DL/Datasets/data/video/摹阮郜女仙图卷.mp4"
+sam3_root: "/home/610-ltf/DL/models/OUTV/OUTV-codex-sd3-temporal-outpainting/outputs/sam3_segments/摹阮郜女仙图卷"
+sample_size: [768, 768]
+sample_stride: 1
+sample_n_frames: 64
+target_size: [512, 512]
+anchor_size: [512, 512]
+overlap_ratio: [0.1, 1.0, 0.1, 1.0]
+random_sample_time: false
+

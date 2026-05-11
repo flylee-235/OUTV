@@ -1,0 +1,19 @@
+output_dir: "outputs/fyc_sam3_tta/full_tta"
+video_path: "/home/610-ltf/DL/Datasets/data/video/摹阮郜女仙图卷.mp4"
+sam3_root: "/home/610-ltf/DL/models/OUTV/OUTV-codex-sd3-temporal-outpainting/outputs/sam3_segments/摹阮郜女仙图卷"
+use_sam3_dense_memory: true
+use_sam3_semantic_layout: true
+use_internal_curriculum: true
+loss_weights:
+  outpaint: 1.0
+  semantic_layout: 0.1
+  boundary_consistency: 0.1
+  temporal_feature: 0.05
+  adapter_regularization: 0.01
+trainable_modules: ["_ip", "image_proj_model", "add_cond_embedding", "conv_in"]
+curriculum:
+  multi_scale: true
+  half_stride_grid: true
+  corner_biased_sampling: true
+  hard_region_sampling: true
+
